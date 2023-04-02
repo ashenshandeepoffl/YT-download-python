@@ -1,0 +1,27 @@
+from pytube import YouTube
+
+# Prompt the user for the YouTube link
+link = input("Enter the YouTube link: ")
+
+# Create a YouTube object from the link
+yt = YouTube(link)
+
+# Get a list of available video streams
+streams = yt.streams.filter(progressive=True)
+
+# Prompt the user for the video quality
+print("Available video quality:")
+for i, stream in enumerate(streams):
+    print(f"{i+1}. {stream.resolution}")
+selection = int(input("Enter the desired video quality (1-{}): ".format(len(streams))))
+
+# Select the desired video stream
+stream = streams[selection-1]
+
+# Prompt the user for the download path
+path = input("Enter the download path: ")
+
+# Download the video
+print("Downloading video...")
+stream.download(output_path=path)
+print("Video downloaded successfully.")
